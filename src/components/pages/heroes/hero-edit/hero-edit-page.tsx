@@ -54,7 +54,6 @@ interface Props {
 	heroes: Hero[];
 	sourcebooks: Sourcebook[];
 	goHome: () => void;
-	showAbout: () => void;
 	saveChanges: (hero: Hero) => void;
 	cancelChanges: (heroId: string) => void;
 }
@@ -398,7 +397,7 @@ export const HeroEditPage = ({ cancelChanges, ...props }: Props) => {
 
 		return (
 			<div className='hero-edit-page'>
-				<AppHeader subtitle='Heroes' goHome={props.goHome} showAbout={props.showAbout}>
+				<AppHeader subtitle='Heroes' goHome={props.goHome}>
 					<Button type='primary' disabled={!dirty} onClick={saveChanges}>
 						Save Changes
 					</Button>

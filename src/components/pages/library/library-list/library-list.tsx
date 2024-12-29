@@ -29,6 +29,7 @@ import { SourcebookLogic } from '../../../../logic/sourcebook-logic';
 import { Title } from '../../../../models/title';
 import { TitlePanel } from '../../../panels/elements/title-panel/title-panel';
 import { Utils } from '../../../../utils/utils';
+import { useModals } from '../../../../hooks/use-modals';
 import { useNavigation } from '../../../../hooks/use-navigation';
 import { useParams } from 'react-router';
 import { useState } from 'react';
@@ -39,8 +40,6 @@ interface Props {
 	sourcebooks: Sourcebook[];
 	hiddenSourcebookIDs: string[];
 	goHome: () => void;
-	showAbout: () => void;
-	showSourcebooks: () => void;
 	viewAncestry: (ancestry: Ancestry) => void;
 	viewCulture: (cultiure: Culture) => void;
 	viewCareer: (career: Career) => void;
@@ -66,6 +65,7 @@ const useTabKey = (): [SourcebookElementKind, (tabKey: SourcebookElementKind) =>
 };
 
 export const LibraryListPage = (props: Props) => {
+	const modals = useModals();
 	const [ tabKey, setTabKey ] = useTabKey();
 	const [ previousTab, setPreviousTab ] = useState(tabKey);
 	const [ element, setElement ] = useState<SourcebookElementKind>('Ancestry');
@@ -611,7 +611,7 @@ export const LibraryListPage = (props: Props) => {
 
 		return (
 			<div className='library-list-page'>
-				<AppHeader subtitle='Library' goHome={props.goHome} showAbout={props.showAbout}>
+				<AppHeader subtitle='Library' goHome={props.goHome}>
 					<Input
 						placeholder='Search'
 						allowClear={true}
@@ -679,7 +679,7 @@ export const LibraryListPage = (props: Props) => {
 							<DownOutlined />
 						</Button>
 					</Popover>
-					<Button onClick={props.showSourcebooks}>
+					<Button onClick={modals.showSourcebooks}>
 						Sourcebooks
 					</Button>
 				</AppHeader>
