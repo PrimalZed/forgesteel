@@ -23,7 +23,6 @@ import { MonsterGroupPanel } from '../../../panels/elements/monster-group-panel/
 import { Perk } from '../../../../models/perk';
 import { PerkPanel } from '../../../panels/elements/perk-panel/perk-panel';
 import { SelectablePanel } from '../../../controls/selectable-panel/selectable-panel';
-import { Sourcebook } from '../../../../models/sourcebook';
 import { SourcebookElementKind } from '../../../../models/sourcebook-element-kind';
 import { SourcebookLogic } from '../../../../logic/sourcebook-logic';
 import { Title } from '../../../../models/title';
@@ -32,13 +31,12 @@ import { Utils } from '../../../../utils/utils';
 import { useModals } from '../../../../hooks/use-modals';
 import { useNavigation } from '../../../../hooks/use-navigation';
 import { useParams } from 'react-router';
+import { usePersistedSourcebooks } from '../../../../hooks/use-persisted-sourcebooks';
 import { useState } from 'react';
 
 import './library-list.scss';
 
 interface Props {
-	sourcebooks: Sourcebook[];
-	hiddenSourcebookIDs: string[];
 	goHome: () => void;
 	viewAncestry: (ancestry: Ancestry) => void;
 	viewCulture: (cultiure: Culture) => void;
@@ -66,11 +64,12 @@ const useTabKey = (): [SourcebookElementKind, (tabKey: SourcebookElementKind) =>
 
 export const LibraryListPage = (props: Props) => {
 	const modals = useModals();
+	const { sourcebooks, hiddenSourcebookIds } = usePersistedSourcebooks();
 	const [ tabKey, setTabKey ] = useTabKey();
 	const [ previousTab, setPreviousTab ] = useState(tabKey);
 	const [ element, setElement ] = useState<SourcebookElementKind>('Ancestry');
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
-	const [ sourcebookID, setSourcebookID ] = useState<string | null>(props.sourcebooks.filter(cs => cs.isHomebrew).length > 0 ? props.sourcebooks.filter(cs => cs.isHomebrew)[0].id : null);
+	const [ sourcebookID, setSourcebookID ] = useState<string | null>(sourcebooks.filter(cs => cs.isHomebrew).length > 0 ? sourcebooks.filter(cs => cs.isHomebrew)[0].id : null);
 
 	if (tabKey !== previousTab) {
 		setElement(tabKey);
@@ -78,7 +77,7 @@ export const LibraryListPage = (props: Props) => {
 	}
 
 	const getSourcebooks = () => {
-		return props.sourcebooks.filter(cs => !props.hiddenSourcebookIDs.includes(cs.id));
+		return sourcebooks.filter(cs => !hiddenSourcebookIds.includes(cs.id));
 	};
 
 	const createHomebrew = () => {
@@ -205,7 +204,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getAncestrySourcebook(props.sourcebooks, a);
+						const sourcebook = SourcebookLogic.getAncestrySourcebook(sourcebooks, a);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={a.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -242,7 +241,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getCultureSourcebook(props.sourcebooks, c);
+						const sourcebook = SourcebookLogic.getCultureSourcebook(sourcebooks, c);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={c.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -279,7 +278,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getCareerSourcebook(props.sourcebooks, c);
+						const sourcebook = SourcebookLogic.getCareerSourcebook(sourcebooks, c);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={c.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -317,7 +316,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getClassSourcebook(props.sourcebooks, c);
+						const sourcebook = SourcebookLogic.getClassSourcebook(sourcebooks, c);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={c.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -354,7 +353,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getComplicationSourcebook(props.sourcebooks, c);
+						const sourcebook = SourcebookLogic.getComplicationSourcebook(sourcebooks, c);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={c.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -391,7 +390,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getDomainSourcebook(props.sourcebooks, d);
+						const sourcebook = SourcebookLogic.getDomainSourcebook(sourcebooks, d);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={d.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -428,7 +427,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getKitSourcebook(props.sourcebooks, k);
+						const sourcebook = SourcebookLogic.getKitSourcebook(sourcebooks, k);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={k.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -465,7 +464,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getPerkSourcebook(props.sourcebooks, p);
+						const sourcebook = SourcebookLogic.getPerkSourcebook(sourcebooks, p);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={p.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -502,7 +501,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getTitleSourcebook(props.sourcebooks, t);
+						const sourcebook = SourcebookLogic.getTitleSourcebook(sourcebooks, t);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={t.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -539,7 +538,7 @@ export const LibraryListPage = (props: Props) => {
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getItemSourcebook(props.sourcebooks, i);
+						const sourcebook = SourcebookLogic.getItemSourcebook(sourcebooks, i);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={i.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -572,11 +571,11 @@ export const LibraryListPage = (props: Props) => {
 					list.map(mg => {
 						const item = (
 							<SelectablePanel key={mg.id} onSelect={() => props.viewMonsterGroup(mg)}>
-								<MonsterGroupPanel monsterGroup={mg} sourcebooks={props.sourcebooks} />
+								<MonsterGroupPanel monsterGroup={mg} />
 							</SelectablePanel>
 						);
 
-						const sourcebook = SourcebookLogic.getMonsterGroupSourcebook(props.sourcebooks, mg);
+						const sourcebook = SourcebookLogic.getMonsterGroupSourcebook(sourcebooks, mg);
 						if (sourcebook && sourcebook.id) {
 							return (
 								<Badge.Ribbon key={mg.id} text={sourcebook.name || 'Unnamed Sourcebook'}>
@@ -595,7 +594,7 @@ export const LibraryListPage = (props: Props) => {
 	try {
 		const elementOptions = [ 'Ancestry', 'Culture', 'Career', [ 'HeroClass', 'Class' ], 'Complication', 'Domain', 'Kit', 'Perk', 'Title', 'Item', [ 'MonsterGroup', 'Monster Group' ] ]
 			.map(e => Array.isArray(e) ? { label: e[1], value: e[0] } : ({ label: e, value: e }));
-		const sourcebookOptions = props.sourcebooks.filter(cs => cs.isHomebrew).map(cs => ({ label: cs.name || 'Unnamed Sourcebook', value: cs.id }));
+		const sourcebookOptions = sourcebooks.filter(cs => cs.isHomebrew).map(cs => ({ label: cs.name || 'Unnamed Sourcebook', value: cs.id }));
 
 		const ancestries = getAncestries();
 		const cultures = getCultures();
