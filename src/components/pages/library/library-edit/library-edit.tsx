@@ -3,7 +3,7 @@ import { CaretDownOutlined, CaretUpOutlined, ThunderboltOutlined } from '@ant-de
 import { EnvironmentData, OrganizationData, UpbringingData } from '../../../../data/culture-data';
 import { KitArmor, KitType, KitWeapon } from '../../../../enums/kit';
 import { Monster, MonsterGroup } from '../../../../models/monster';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Ability } from '../../../../models/ability';
 import { AbilityEditPanel } from '../../../panels/edit/ability-edit-panel/ability-edit-panel';
 import { AbilityLogic } from '../../../../logic/ability-logic';
@@ -69,23 +69,21 @@ export const LibraryEditPage = (props: Props) => {
 	const navigation = useNavigation();
 	const { sourcebooks } = usePersistedSourcebooks();
 	const { sourcebookId, kind, elementId } = useParams<{ sourcebookId: string, kind: SourcebookElementKind, elementId: string }>();
-	const [ element, setElement ] = useState<Element | undefined>();
 	const [ dirty, setDirty ] = useState<boolean>(false);
 	const sourcebook = useMemo(() => sourcebooks.find(s => s.id === sourcebookId), [ sourcebookId, sourcebooks ]);
 	const sourcebookKey = useMemo(() => getSourcebookKey(kind!), [ kind ]);
 	const originalElement = useMemo(() => sourcebook?.[sourcebookKey].find(e => e.id === elementId), [ sourcebook, sourcebookKey, elementId ]);
+	const [ previousElement, setPreviousElement ] = useState(originalElement);
+	const [ element, setElement ] = useState<Element | undefined>(originalElement);
 
-	useEffect(() => {
-		if (!originalElement) {
-			return;
-		}
-		setElement(JSON.parse(JSON.stringify(originalElement)) as Element);
-	}, [ originalElement ]);
+	if (originalElement !== previousElement) {
+		setElement(originalElement);
+		setPreviousElement(originalElement);
+	}
 
 	if (!element) {
 		return null;
 	}
-
 
 	const getNameAndDescriptionSection = () => {
 		const setName = (value: string) => {

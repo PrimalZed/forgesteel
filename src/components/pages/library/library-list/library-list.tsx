@@ -65,7 +65,7 @@ export const LibraryListPage = (props: Props) => {
 	const { sourcebooks, hiddenSourcebookIds } = usePersistedSourcebooks();
 	const [ tabKey, setTabKey ] = useTabKey();
 	const [ previousTab, setPreviousTab ] = useState(tabKey);
-	const [ element, setElement ] = useState<SourcebookElementKind>('Ancestry');
+	const [ element, setElement ] = useState<SourcebookElementKind>(tabKey);
 	const [ searchTerm, setSearchTerm ] = useState<string>('');
 	const [ sourcebookID, setSourcebookID ] = useState<string | null>(sourcebooks.filter(cs => cs.isHomebrew).length > 0 ? sourcebooks.filter(cs => cs.isHomebrew)[0].id : null);
 
