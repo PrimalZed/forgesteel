@@ -152,7 +152,7 @@ export class MonsterLogic {
 		};
 	};
 
-	static createSize = (value: number, mod?: string): Size => {
+	static createSize = (value: number, mod?: 'T' | 'S' | 'M' | 'L' | ''): Size => {
 		return {
 			value: value,
 			mod: mod || ''
