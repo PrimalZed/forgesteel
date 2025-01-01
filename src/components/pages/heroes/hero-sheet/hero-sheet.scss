@@ -1,0 +1,165 @@
+.hero-sheet-page-content {
+	display: flex;
+	justify-content: center;
+}
+
+.hero-sheet-grid {
+	width: 1000px;
+	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.hero-header-card {
+	border: 1px solid;
+	padding: 0.5em;
+	display: flex;
+	gap: 0.5em;
+	
+	> .hero-name-card, > .hero-campaign-card {
+		flex: 1 1 0;
+	}
+
+	> .hero-name-card {
+		border: 1px solid;
+		padding: 0.5em;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.5em;
+
+		> .hero-name {
+			grid-column: 1 / -1;
+		}
+		> .hero-ancestry {
+			grid-column: 1 / span 1;
+			grid-row: 2 / span 1;
+		}
+		> .hero-class {
+			grid-column: 2 / span 1;
+			grid-row: 2 / span 1;
+		}
+		> .hero-career {
+			grid-column: 1 / span 1;
+			grid-row: 3 / span 1;
+		}
+		> .hero-subclass {
+			grid-column: 2 / span 1;
+			grid-row: 3 / span 1;
+		}
+	}
+
+	> .hero-campaign-card {
+		border: 1px solid;
+		padding: 0.5em;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		> .hero-campaign-row-1  {
+			display: flex;
+
+			> .hero-victories {
+				flex: 1 1 0;
+				display: flex;
+				flex-direction: column;
+			}
+			> .hero-level {
+				flex: 0 1 0;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+		}
+		> .hero-campaign-row-2 {
+			display: flex;
+			justify-content: space-between;
+
+			> .civ {
+				display: flex;
+				gap: 0.5em;
+			}
+		}
+	}
+}
+
+.hero-counters-card {
+	border: 1px solid;
+	padding: 0.5em;
+	display: flex;
+	gap: 0.5em;
+
+	.spacer {
+		border-left: 1px solid;
+		flex: 0 1 0;
+	}
+	> .hero-counters-1, > .hero-stamina, > .hero-recoveries, > .hero-resources, > .hero-surges {
+		flex: 1 1 0;
+	}
+	.hero-counters-1 {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+
+		.hero-characteristics {
+			display: flex;
+			gap: 0.5em;
+		}
+
+		.hero-movement {
+			display: flex;
+			justify-content: center;
+			gap: 0.5em;
+
+			> div {
+				display: flex;
+				flex-direction: column;
+
+				> span {
+					border: 1px solid;
+					padding: 0.5em;
+					text-align: center;
+				}
+				> label {
+					font-size: small;
+					text-align: center;
+				}
+			}
+		}
+	}
+}
+
+.hero-row {
+	display: flex;
+	gap: 1em;
+}
+
+.hero-modifiers-card {
+	flex: 0 1 0;
+	border: 1px solid;
+}
+
+.hero-class-features-card {
+	flex: 1 1 0;
+	border: 1px solid;
+}
+
+.hero-turn-card {
+	flex: 1 1 0;
+	border: 1px solid;
+}
+
+.hero-conditions-card {
+	flex: 1 1 0;
+	border: 1px solid;
+}
+
+.hero-ancestry-traits-card {
+	flex: 1 1 0;
+	border: 1px solid;
+}
+
+h4 {
+	margin: 0;
+	text-align: center;
+}

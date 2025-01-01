@@ -15,6 +15,7 @@ import { HeroClass } from '../../models/class';
 import { HeroEditPage } from '../pages/heroes/hero-edit/hero-edit-page';
 import { HeroListPage } from '../pages/heroes/hero-list/hero-list-page';
 import { HeroPage } from '../pages/heroes/hero-view/hero-view-page';
+import { HeroSheetPage } from '../pages/heroes/hero-sheet/hero-sheet';
 import { Item } from '../../models/item';
 import { Kit } from '../../models/kit';
 import { LibraryEditPage } from '../pages/library/library-edit/library-edit';
@@ -567,6 +568,7 @@ export const Main = () => {
 							/>
 						}
 					/>
+					<Route path='sheet/:heroId' element={<HeroSheetPage />} />
 				</Route>
 				<Route path='library'>
 					<Route

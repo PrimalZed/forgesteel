@@ -1,0 +1,13 @@
+.field-underline {
+	display: flex;
+	flex-direction: column;
+
+	> span {
+		flex: 1 1 0;
+		border-bottom: 1px solid;
+	}
+	> label {
+		flex: 0 1 0;
+		font-size: small;
+	}
+}
