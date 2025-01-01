@@ -61,21 +61,7 @@ interface Props {
 	onHeroChange: (hero: Hero) => Promise<void> | void;
 	onMonsterGroupCreate: (monsterGroup: MonsterGroup, sourcebook: Sourcebook | null) => void;
 }
-export const MainLayout = ({
-	onAncestryCreate,
-	onCareerCreate,
-	onClassCreate,
-	onComplicationCreate,
-	onCultureCreate,
-	onDomainCreate,
-	onItemCreate,
-	onKitCreate,
-	onPerkCreate,
-	onTitleCreate,
-	onEncounterDelete,
-	onHeroChange,
-	onMonsterGroupCreate
-}: Props) => {
+export const MainLayout = (props: Props) => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const navigation = useNavigation();
@@ -145,16 +131,16 @@ export const MainLayout = ({
 					exportExt: 'ancestry',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <AncestryModal
-						{ ...props }
+						{ ...modalProps }
 						ancestry={element}
-						createHomebrew={sourcebook => onAncestryCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onAncestryCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onAncestryCreate ]
+		[ getSourcebookElementModal, props.onAncestryCreate ]
 	);
 
 	const getCareerModal = useCallback(
@@ -169,16 +155,16 @@ export const MainLayout = ({
 					exportExt: 'career',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <CareerModal
-						{ ...props }
+						{ ...modalProps }
 						career={element}
-						createHomebrew={sourcebook => onCareerCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onCareerCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onCareerCreate ]
+		[ getSourcebookElementModal, props.onCareerCreate ]
 	);
 
 	const getClassModal = useCallback(
@@ -193,16 +179,16 @@ export const MainLayout = ({
 					exportExt: 'class',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <ClassModal
-						{ ...props }
+						{ ...modalProps }
 						heroClass={element}
-						createHomebrew={sourcebook => onClassCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onClassCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onClassCreate ]
+		[ getSourcebookElementModal, props.onClassCreate ]
 	);
 
 	const getComplicationModal = useCallback(
@@ -217,16 +203,16 @@ export const MainLayout = ({
 					exportExt: 'complication',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <ComplicationModal
-						{ ...props }
+						{ ...modalProps }
 						complication={element}
-						createHomebrew={sourcebook => onComplicationCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onComplicationCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onComplicationCreate ]
+		[ getSourcebookElementModal, props.onComplicationCreate ]
 	);
 
 	const getCultureModal = useCallback(
@@ -241,16 +227,16 @@ export const MainLayout = ({
 					exportExt: 'culture',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <CultureModal
-						{ ...props }
+						{ ...modalProps }
 						culture={element}
-						createHomebrew={sourcebook => onCultureCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onCultureCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onCultureCreate ]
+		[ getSourcebookElementModal, props.onCultureCreate ]
 	);
 
 	const getDomainModal = useCallback(
@@ -265,16 +251,16 @@ export const MainLayout = ({
 					exportExt: 'domain',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <DomainModal
-						{ ...props }
+						{ ...modalProps }
 						domain={element}
-						createHomebrew={sourcebook => onDomainCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onDomainCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onDomainCreate ]
+		[ getSourcebookElementModal, props.onDomainCreate ]
 	);
 
 	const getItemModal = useCallback(
@@ -289,16 +275,16 @@ export const MainLayout = ({
 					exportExt: 'item',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <ItemModal
-						{ ...props }
+						{ ...modalProps }
 						item={element}
-						createHomebrew={sourcebook => onItemCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onItemCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onItemCreate ]
+		[ getSourcebookElementModal, props.onItemCreate ]
 	);
 
 	const getKitModal = useCallback(
@@ -313,16 +299,16 @@ export const MainLayout = ({
 					exportExt: 'kit',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <KitModal
-						{ ...props }
+						{ ...modalProps }
 						kit={element}
-						createHomebrew={sourcebook => onKitCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onKitCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onKitCreate ]
+		[ getSourcebookElementModal, props.onKitCreate ]
 	);
 
 	const getPerkModal = useCallback(
@@ -337,16 +323,16 @@ export const MainLayout = ({
 					exportExt: 'perk',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <PerkModal
-						{ ...props }
+						{ ...modalProps }
 						perk={element}
-						createHomebrew={sourcebook => onPerkCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onPerkCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onPerkCreate ]
+		[ getSourcebookElementModal, props.onPerkCreate ]
 	);
 
 	const getTitleModal = useCallback(
@@ -361,16 +347,16 @@ export const MainLayout = ({
 					exportExt: 'title',
 					getModal: ({
 						element,
-						...props
+						...modalProps
 					}) => <TitleModal
-						{ ...props }
+						{ ...modalProps }
 						title={element}
-						createHomebrew={sourcebook => onTitleCreate(element, sourcebook)}
+						createHomebrew={sourcebook => props.onTitleCreate(element, sourcebook)}
 					/>
 				}
 			);
 		},
-		[ getSourcebookElementModal, onTitleCreate ]
+		[ getSourcebookElementModal, props.onTitleCreate ]
 	);
 
 	// #endregion
@@ -383,10 +369,10 @@ export const MainLayout = ({
 				encounter={encounter}
 				export={format => Utils.export([ encounter.id ], encounter.name || 'Encounter', encounter, 'encounter', format)}
 				edit={() => navigation.goToEncounterEdit(encounterId)}
-				delete={() => onEncounterDelete(encounterId)}
+				delete={() => props.onEncounterDelete(encounterId)}
 			/>;
 		},
-		[ playbook, navigation, onEncounterDelete ]
+		[ playbook, navigation, props.onEncounterDelete ]
 	);
 
 	const getHeroModal = useCallback(
@@ -404,11 +390,11 @@ export const MainLayout = ({
 					return <HeroStateModal
 						hero={hero}
 						startPage={heroPage}
-						onChange={onHeroChange}
+						onChange={props.onHeroChange}
 						onLevelUp={async () => {
 							if (hero && hero.class) {
 								hero.class.level += 1;
-								await onHeroChange(hero);
+								await props.onHeroChange(hero);
 								navigation.goToHeroEdit(hero.id, 'Class');
 							}
 						}}
@@ -417,7 +403,7 @@ export const MainLayout = ({
 					return <RulesModal hero={hero} />;
 			}
 		},
-		[ heroes, navigation, onHeroChange ]
+		[ heroes, navigation, props.onHeroChange ]
 	);
 
 	const getMonsterModal = useCallback(
@@ -448,13 +434,13 @@ export const MainLayout = ({
 				monsterGroup={monsterGroup}
 				homebrewSourcebooks={homebrewSourcebooks}
 				isHomebrew={sourcebook.isHomebrew}
-				createHomebrew={sourcebook => onMonsterGroupCreate(monsterGroup, sourcebook)}
+				createHomebrew={sourcebook => props.onMonsterGroupCreate(monsterGroup, sourcebook)}
 				export={format => Utils.export([ monsterGroup.id ], monsterGroup.name || 'Monster Group', monsterGroup, 'monster-group', format)}
 				edit={() => navigation.goToLibraryEdit(sourcebook.id, 'MonsterGroup', monsterGroup.id)}
 				delete={() => { deleteSourcebookElement('MonsterGroup', monsterGroup.id); navigate({ hash: '' }); }}
 			/>;
 		},
-		[ sourcebooks, navigate, navigation, onMonsterGroupCreate, deleteSourcebookElement ]
+		[ sourcebooks, navigate, navigation, props.onMonsterGroupCreate, deleteSourcebookElement ]
 	);
 
 	function getHeroAbilityModal(hero: Hero, segments: string[]) {
