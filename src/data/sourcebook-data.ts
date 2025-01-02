@@ -17,6 +17,7 @@ import { goblin } from './monsters/goblin';
 import { hakaan } from './ancestries/hakaan';
 import { highElf } from './ancestries/elf-high';
 import { human } from './ancestries/human';
+import { kobold } from './monsters/kobold';
 import { memonek } from './ancestries/memonek';
 import { orc } from './ancestries/orc';
 import { polder } from './ancestries/polder';
@@ -182,6 +183,7 @@ export class SourcebookData {
 		items: [],
 		monsterGroups: [
 			goblin,
+			kobold,
 			radenwight
 		],
 		skills: [

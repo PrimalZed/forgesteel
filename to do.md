@@ -13,7 +13,7 @@
 * Monsters
   * [x] Radenwight
   * [x] Goblins
-  * [ ] Kobolds
+  * [x] Kobolds
   * [ ] Dwarves
   * [ ] Elves, High
   * [ ] Elves, Wode
